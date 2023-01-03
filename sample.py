@@ -14,13 +14,15 @@ async def my_team(user_id):
         await fpl.login(EMAIL, PASSWORD)
         user = await fpl.get_user(user_id)
         team = await user.get_team()
-        player = await fpl.get_player(team[0]["element"])
-    print(player)
+        player_id = team[0]["element"]
+        player = await fpl.get_player(player_id, include_summary=True)
+        total_points = getattr(player, "total_points", 0.0)
+    print(total_points)
 
 async def main():
     session = aiohttp.ClientSession()
     fpl = FPL(session)
-    player = await fpl.get_player(300)
+    player = await fpl.get_player(301)
     print(player)
     await session.close()
 
