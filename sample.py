@@ -1,13 +1,23 @@
-# Input will be 2 arrays: 1. Current Team, 2. Bench
-# Output will be an array of Changes made
+from fpl import FPL
+import aiohttp
+import asyncio
 
-class WeekMaximiser:
-    def __init__(self, team=None, bench=None):
-        self.team = team
-        self.bench = bench
+async def my_team(user_id):
+    async with aiohttp.ClientSession() as session:
+        fpl = FPL(session)
+        await fpl.login("john.12012000@gmail.com", "fR0$+(A|\|)Y")
+        user = await fpl.get_user(user_id)
+        team = await user.get_team()
+        player = await fpl.get_player(team[0]["element"])
+    print(player.get("element_type"))
 
-    # Sort Players based on Points (non-decreasing)
-    # If any outfield player on the bench has higher score than first player in sorted array:
-    # Check if it's a valid replacement, if valid, replace
-    # If invalid, move to next sub
-    def 
+async def main():
+    session = aiohttp.ClientSession()
+    fpl = FPL(session)
+    player = await fpl.get_player(300)
+    print(player)
+    await session.close()
+
+if __name__ == "__main__":
+    asyncio.run(main())
+    asyncio.run(my_team(4905776))

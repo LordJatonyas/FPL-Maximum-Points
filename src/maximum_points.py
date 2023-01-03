@@ -1,3 +1,6 @@
+from fpl import FPL
+import aiohttp
+
 class MaximumPoints():
     def __init__(self, gk, df, md, fw):
         self.gk = gk
