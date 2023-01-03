@@ -1,15 +1,21 @@
 from fpl import FPL
 import aiohttp
 import asyncio
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+EMAIL = os.getenv("EMAIL")
+PASSWORD = os.getenv("PASSWORD")
 
 async def my_team(user_id):
     async with aiohttp.ClientSession() as session:
         fpl = FPL(session)
-        await fpl.login("john.12012000@gmail.com", "fR0$+(A|\|)Y")
+        await fpl.login(EMAIL, PASSWORD)
         user = await fpl.get_user(user_id)
         team = await user.get_team()
         player = await fpl.get_player(team[0]["element"])
-    print(player.get("element_type"))
+    print(player)
 
 async def main():
     session = aiohttp.ClientSession()
