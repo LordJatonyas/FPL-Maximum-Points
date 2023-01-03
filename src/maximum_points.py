@@ -9,11 +9,11 @@ class MaximumPoints():
         return max(self.gk[0], self.gk[-1])
 
     def maxOutfield(self):
-        bestPoints = 0
+        bestOutfield = 0
         # necessary conditions (3 defenders, 2 midfielders, 1 forward)
-        bestPoints += self.df[-1] + self.df[-2] + self.df[-3]
-        bestPoints += self.md[-1] + self.md[-2]
-        bestPoints += self.fw[-1]
+        bestOutfield += self.df[-1] + self.df[-2] + self.df[-3]
+        bestOutfield += self.md[-1] + self.md[-2]
+        bestOutfield += self.fw[-1]
 
         remaining = []
         for i in range(len(self.df) - 3):
@@ -25,8 +25,8 @@ class MaximumPoints():
         remaining.sort()
 
         for x in range(len(remaining) - 4, len(remaining)):
-            bestPoints += remaining[x]
-        return bestPoints
+            bestOutfield += remaining[x]
+        return bestOutfield
 
     def maxPoints(self):
         return self.maxGK() + self.maxOutfield()
