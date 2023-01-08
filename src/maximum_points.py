@@ -1,5 +1,3 @@
-from fpl import FPL
-
 class MaximumPoints():
     def __init__(self, players: list[list[tuple]]):
         self.players = players # each list within is already sorted based on score
@@ -8,7 +6,7 @@ class MaximumPoints():
         return self.players[0][-1]
 
     def maxOutfield(self) -> list[list[tuple]]:
-        bestOutfield: list[tuple] = [[],[],[]]
+        bestOutfield: list[list[tuple]] = [[],[],[]]
 
         # necessary conditions (3 defenders, 2 midfielders, 1 forward)
         bestOutfield[2].append(self.players[3][-1])
