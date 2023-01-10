@@ -50,7 +50,7 @@ class PlayerStats():
                         player_position = ""
                 r = requests.get(f"{base_url}element-summary/{player_id}/").json()
                 player_score: int = r.get("history")[-1].get("total_points")
-                players.append(player_score)
+                player.append(player_score)
                 """
                 players.append({
                     "name": player_name,
