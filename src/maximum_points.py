@@ -16,7 +16,7 @@ class MaximumPoints():
             print("There should be 3 Fowards!")
             return False
         return True
-        
+
 
     def maxGK(self) -> tuple:
         if not self.checkPlayersArrayLengths():
@@ -30,28 +30,17 @@ class MaximumPoints():
             return bestOutfield
 
         # necessary conditions (3 defenders, 2 midfielders, 1 forward)
-        bestOutfield[2].append(self.players[3][-1])
-        for x in range(3):
-            if x < 2:
-                bestOutfield[1].append(self.players[2][-x-1])
-            bestOutfield[0].append(self.players[1][-x-1])
-        # Remaining 4 players are picked depending on points
-        # First, fill it with the remaining FW and MD (1 + 3 = 4)
-        bestOutfield[2].append(self.players[3][0])
-        for y in range(3):
-            bestOutfield[1].append(self.players[2][2-y])
-        # Now, compare DF list with what's just added
-        for z in range(2):
-            if bestOutfield[2][-1] < self.players[1][1-z] and len(bestOutfield[2]) > 1:
-                bestOutfield[2].pop()
-                bestOutfield[0].append(self.players[1][1-z])
-                continue
-            if bestOutfield[1][-1] < self.players[1][1-z] and len(bestOutfield[1]) > 2:
-                bestOutfield[1].pop()
-                bestOutfield[0].append(self.players[1][1-z])
-                continue
+        for i in range(len(bestOutfield) - 1, -1, -1):
+            for j in range(1, 4 - i):
+                bestOutfield[i].append(self.players[i + 1][-j])
+
+
 
         return bestOutfield
+
+    def pickCaptain(self) -> tuple(int, int):
+        #TODO
+        pass
 
     def maxTeam(self) -> list[list[tuple]]:
         team = self.maxOutfield()

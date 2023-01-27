@@ -3,6 +3,7 @@ import aiohttp
 from operator import itemgetter
 import requests
 from typing import Optional
+import getpass
 import maximum_points
 
 import asyncio
@@ -12,7 +13,7 @@ class PlayerStats():
         self.user_id = user_id
         self.email = email
         self.password = password
-    
+
     # Output is a list with index 0 -> GK, 1 -> DF, 2 -> MD, 3 -> FW
     # Each index has a list of tuples (name, score)
     async def get_players(self) -> list[list[tuple]]:
@@ -28,7 +29,7 @@ class PlayerStats():
             print("Invalid email or password")
             await session.close()
             return players
-        
+
         user = await fpl.get_user(self.user_id)
         try:
             team = await user.get_team()
@@ -44,7 +45,7 @@ class PlayerStats():
         player_position: int = 0
         player_name: str = ""
         player_score: int = 0
-        
+
         for p in team:
             player_id = p.get("element")
             player = await fpl.get_player(player_id, include_summary=True)
@@ -70,8 +71,11 @@ class PlayerStats():
 
 if __name__ == "__main__":
     team_id: str = input("Enter your team ID: ")
-    email: str = input("Enter the email address tied to FPL: ")
-    password: str = input("Enter your password: ")
+    email: str = input("Enter your FPL email: ")
+    try:
+        password = getpass.getpass()
+    except Exception as error:
+        print("ERROR", error)
     ps = PlayerStats(team_id, email, password)
     players: list[list[tuple]] = asyncio.run(ps.get_players())
     print(f'{players}\n')
