@@ -34,12 +34,13 @@ class MaximumPoints():
             for j in range(1, 4 - i):
                 bestOutfield[i].append(self.players[i + 1][-j])
 
+        # pick 4 more players
+
 
 
         return bestOutfield
 
-    def pickCaptain(self) -> tuple(int, int):
-        #TODO
+    def pickCaptain(self) -> tuple(int):
         pass
 
     def maxTeam(self) -> list[list[tuple]]:
